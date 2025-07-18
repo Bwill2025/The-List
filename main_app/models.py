@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 PRIORITY_CHOICES = [
     ('L', 'Low'),
@@ -17,4 +18,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.title} ({'Done' if self.completed else 'Pending'})"
+        return self.title
+    def get_absolute_url(self):
+        return reverse('task_list')
+        

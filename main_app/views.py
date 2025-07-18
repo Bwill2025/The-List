@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
 from .models import Task
 from .forms import TaskForm
 
@@ -22,6 +23,16 @@ def task_create(request):
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
+
+class TaskCreateView(CreateView):
+    model = Task
+    fields = '__all__'
+    form_class = TaskForm
+    template_name = 'tasks/task_form.html'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 # Edit an existing task
 @login_required
