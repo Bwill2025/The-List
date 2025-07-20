@@ -1,0 +1,8 @@
+<h1>Task List</h1>
+<ul>
+  {% for task in tasks %}
+    <li>{{ task.title }} - {{ task.due_date }} - {% if task.completed %}Done{% else %}Not Done{% endif %}</li>
+  {% empty %}
+    <li>No tasks yet.</li>
+  {% endfor %}
+</ul>
