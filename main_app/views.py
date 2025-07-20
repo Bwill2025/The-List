@@ -6,6 +6,9 @@ from django.contrib.auth import login
 from .models import Task
 from .forms import TaskForm, UserForm
 
+
+def home(request):
+    return render(request, 'home.html')
 # List all tasks for the logged-in user
 @login_required
 def task_list(request):
