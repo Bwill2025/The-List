@@ -15,6 +15,9 @@ def task_list(request):
     tasks = Task.objects.filter(user=request.user).order_by('due_date')
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
+def about(request):
+    return render(request, 'about.html')
+
 # Create a new task
 @login_required
 def task_create(request):
@@ -80,7 +83,7 @@ def signup(request):
             user = form.save()
             # This is how we log a user in
             login(request, user)
-            return redirect('task-index')
+            return redirect('task_list')
         else:
             error_message = 'Invalid sign up - try again'
     # A bad POST or a GET request, so render signup.html with an empty form
