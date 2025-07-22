@@ -1,7 +1,22 @@
 <h1>Task List</h1>
+<a href="{% url 'task_create_view' %}">Add New Task</a> |
+<a href="{% url 'home' %}">Return Home</a>
 <ul>
   {% for task in tasks %}
-    <li>{{ task.title }} - {{ task.due_date }} - {% if task.completed %}Done{% else %}Not Done{% endif %}</li>
+    <li>
+      {{ task.title }} - {{ task.due_date|date:"M d, Y" }} -
+      {% if task.completed %}
+        ✅ Done
+      {% else %}
+        ❌ Not Done
+        <a href="{% url 'task_complete' task.id %}">Mark as Done</a>
+      {% endif %}
+      <a href="{% url 'task_edit' task.id %}">Edit</a>
+      <form action="{% url 'task_delete' task.id %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+      </form>
+    </li>
   {% empty %}
     <li>No tasks yet.</li>
   {% endfor %}

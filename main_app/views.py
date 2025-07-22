@@ -19,23 +19,12 @@ def about(request):
     return render(request, 'about.html')
 
 # Create a new task
-@login_required
-def task_create(request):
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.user = request.user
-            task.save()
-            return redirect('task_list')
-    else:
-        form = TaskForm()
-    return render(request, 'tasks/task_form.html', {'form': form})
 
+#with adding an "s" on the end of task i can now see my task list
 class TaskCreateView(CreateView):
     model = Task
     fields = '__all__'
-    form_class = TaskForm
+    
     template_name = 'tasks/task_form.html'
     
     def form_valid(self, form):
@@ -71,6 +60,11 @@ def task_complete(request, pk):
     task.completed = True
     task.save()
     return redirect('task_list')
+
+@login_required
+def task_calendar(request):
+    tasks = Task.objects.filter(user=request.user)
+    return render(request, 'tasks/calendar.html', {'tasks': tasks})
 
 def signup(request):
     error_message = ''
