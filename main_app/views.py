@@ -23,8 +23,8 @@ def about(request):
 #with adding an "s" on the end of task i can now see my task list
 class TaskCreateView(CreateView):
     model = Task
-    fields = '__all__'
-    
+   
+    form_class = TaskForm
     template_name = 'tasks/task_form.html'
     
     def form_valid(self, form):

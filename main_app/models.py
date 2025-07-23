@@ -21,4 +21,17 @@ class Task(models.Model):
         return self.title
     def get_absolute_url(self):
         return reverse('task_list')
-        
+class Selecting(models.Model):
+    date = models.DateField('Priority Date')
+    choice = models.CharField(
+        max_length=1,
+        choices=PRIORITY_CHOICES,
+        default=PRIORITY_CHOICES[0][0]
+        )
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.get_choice_display()} on {self.date}"
+    
+    class Meta:
+        ordering = ['-date']        
