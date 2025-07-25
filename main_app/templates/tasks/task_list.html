@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <h1>Task List</h1>
 <a href="{% url 'task_create_view' %}">Add New Task</a> |
 <a href="{% url 'home' %}">Return Home</a>
@@ -12,12 +15,41 @@
         <a href="{% url 'task_complete' task.id %}">Mark as Done</a>
       {% endif %}
       <a href="{% url 'task_edit' task.id %}">Edit</a>
-      <form action="{% url 'task_delete' task.id %}" method="POST" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
+      <form method="post" action="{% url 'task_delete' task.pk %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="delete-task-btn">Delete</button>
       </form>
     </li>
   {% empty %}
     <li>No tasks yet.</li>
   {% endfor %}
 </ul>
+<audio id="task-added-sound" src="{% static 'sounds/success.mp3' %}" preload="auto"></audio>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const taskList = document.querySelector('.book-page ul');
+    const sound = document.getElementById('task-added-sound');
+    if (taskList && taskList.firstElementChild) {
+      taskList.firstElementChild.classList.add('added');
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play();
+      }
+    }
+  });
+</script>
+<audio id="task-delete-sound" src="{% static 'sounds/wind.mp3' %}" preload="auto"></audio>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const taskList = document.querySelector('.book-page ul');
+    const sound = document.getElementById('task-delete-sound');
+    if (taskList && taskList.firstElementChild) {
+      taskList.firstElementChild.classList.add('deleting');
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play();
+      }
+    }
+  });
+</script>
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,7 @@
 </head>
 <body>
     <h1>Welcome to The List!</h1>
+    <h2>Your Personal Task Manager</h2>
     {% if user.is_authenticated %}
         <p>Hello, {{ user.username }}!</p>
         <p><a href="{% url 'task_list' %}">View Your Tasks</a></p>
@@ -17,3 +21,4 @@
     {% endif %}
 </body>
 </html>
+{% endblock %}

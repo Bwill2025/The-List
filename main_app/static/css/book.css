@@ -1,0 +1,206 @@
+:root {
+  --page-bg: #f7ecd7;
+  --page-shadow: #e2cfa5;
+  --book-border: #bfa06a;
+  --header-bg: #bfa06a;
+  --header-text: #4e3b1f;
+  --nav-bg: #e2cfa5;
+  --nav-link: #7c5c2b;
+  --nav-link-active: #4e3b1f;
+  --main-text: #4e3b1f;
+  --accent: #e2cfa5;
+  --button-bg: #bfa06a;
+  --button-text: #fffbe8;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--main-text);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  margin: 0;
+  padding: 0;
+}
+
+.book-page {
+  background: #fffbe8;
+  box-shadow: 0 4px 24px var(--page-shadow), 0 0 0 8px var(--page-bg);
+  border-radius: 12px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  max-width: 700px;
+  min-height: 400px;
+  position: relative;
+  border: 2px solid var(--book-border);
+  transition: box-shadow 0.7s;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+}
+
+.book-page ul {
+  text-align: left;
+  margin-left: 0;
+  padding-left: 1.5em;
+}
+
+.book-page ul li {
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.page-header,
+.page-header h1 {
+  text-align: center;
+  width: 100%;
+}
+
+form,
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+table {
+  margin: 0 auto;
+}
+
+hr {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul, ol {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  text-align: center;
+}
+
+header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 20px 0 10px 0;
+  text-align: center;
+  border-bottom: 3px solid var(--book-border);
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav ul {
+  background: var(--nav-bg);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+nav ul li a {
+  color: var(--nav-link);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  background: var(--accent);
+  color: var(--nav-link-active);
+}
+
+button,
+.btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover,
+.btn:hover {
+  background: var(--nav-link-active);
+}
+
+hr {
+  border: none;
+  border-top: 2px solid var(--book-border);
+  margin: 24px 0;
+}
+
+.page-header h1 {
+  color: var(--header-text);
+  font-family: 'Georgia', serif;
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
+}
+
+@keyframes taskAdded {
+  0% {
+    background: #ffe9b3;
+    transform: scale(0.95);
+    opacity: 0.2;
+  }
+  60% {
+    background: #fffbe8;
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    background: inherit;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.book-page ul li.added {
+  animation: taskAdded 0.7s ease;
+}
+
+@keyframes taskDeleted {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    background: #ffe9b3;
+  }
+  80% {
+    opacity: 0.2;
+    transform: scale(0.7);
+    background: #ffe9b3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.book-page ul li.deleting {
+  animation: taskDeleted 0.6s forwards;
+}
+
+.page-content {
+  font-family: 'Dancing Script', 'Pacifico', 'Brush Script MT', cursive, sans-serif;
+  font-size: 1.3em;
+  letter-spacing: 1px;
+  color: #7c5c2b;
+}

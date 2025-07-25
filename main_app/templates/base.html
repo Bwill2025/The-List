@@ -1,51 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="" />
     <title>The List</title>
-    {% block head %} 
-    {% endblock %}
   </head>
   <body>
     <header>
       <div class="header-logo-container">
         <a href="{% url 'home' %}">🏠 Home</a>
-          <img src="" alt="The List Logo" />
-        </a>
+        <img src="" alt="The List Logo" />
       </div>
       <nav>
         <ul>
           {% if user.is_authenticated %}
-  <li><a href="{% url 'task_list' %}">All Task</a></li>
-<li><a href="{% url 'task_create_view' %}">Add a Task</a></li>
-<li><a href="{% url 'about' %}">About</a></li>
-   
-  
-    <!-- <li><a href="{% url 'task_edit' 1 %}">Edit a Task</a></li> -->
-    
-  
-  
-  <li>
-    <form id="logout-form" method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit">Log out</button>
-    </form>
-  </li>
-  {% else %}
-  <li><a href="{% url 'about' %}">About</a></li>
-  <li><a href="{% url 'home' %}">Login</a></li>
-  <li><a href="{% url 'signup' %}">Sign Up</a></li>
-{% endif %}
+            <li><a href="{% url 'task_list' %}">All Task</a></li>
+            <li><a href="{% url 'task_create_view' %}">Add a Task</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li>
+              <form id="logout-form" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+              </form>
+            </li>
+          {% else %}
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'home' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
     <main>
-     {% block content %} 
-     {% endblock %}
-     </main>
+      <div class="book-page" id="book-page">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </main>
   </body>
 </html>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+   
+    const taskList = document.querySelector('.book-page ul');
+    if (taskList && taskList.firstElementChild) {
+      taskList.firstElementChild.classList.add('added');
+    }
+
+    
+    document.querySelectorAll('.delete-task-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const li = btn.closest('li');
+        if (li) {
+          li.classList.add('deleting');
+          setTimeout(() => {
+            
+            if (btn.tagName === 'A') {
+              window.location = btn.href;
+            } else if (btn.form) {
+              btn.form.submit();
+            }
+          }, 600); 
+        }
+      });
+    });
+  });
+</script>
