@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="{% static 'css/task/task-detail.css' %}">
 </head>
 <body>
-    <h1>Welcome to The List!</h1>
+    <h1>Welcome to The List🗒️ </h1>
+    
     <h2>Your Personal Task Manager</h2>
     {% if user.is_authenticated %}
         <p>Hello, {{ user.username }}!</p>
+        <img src="https://media.tenor.com/Mos3BAm5aTcAAAAM/checklist-task.gif" alt="a list" />
         <p><a href="{% url 'task_list' %}">View Your Tasks</a></p>
         <p><a href="{% url 'logout' %}">Logout</a></p>
     {% else %}

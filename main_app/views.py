@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
+from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from .models import Task
 from .forms import TaskForm, UserForm
@@ -9,6 +10,8 @@ from .forms import TaskForm, UserForm
 
 class Home(LoginView):
     template_name = 'home.html'
+    def get_success_url(self):
+        return reverse_lazy('home')
 # List all tasks for the logged-in user
 @login_required
 def task_list(request):
@@ -77,7 +80,7 @@ def signup(request):
             user = form.save()
             # This is how we log a user in
             login(request, user)
-            return redirect('task_list')
+            return redirect('home')
         else:
             error_message = 'Invalid sign up - try again'
     # A bad POST or a GET request, so render signup.html with an empty form

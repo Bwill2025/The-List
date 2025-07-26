@@ -7,24 +7,26 @@
 <ul>
   {% for task in tasks %}
     <li>
-      {{ task.title }} - {{ task.due_date|date:"M d, Y" }} -
-      {% if task.completed %}
-        ✅ Done
-      {% else %}
-        ❌ Not Done
-        <a href="{% url 'task_complete' task.id %}">Mark as Done</a>
-      {% endif %}
-      <a href="{% url 'task_edit' task.id %}">Edit</a>
-      <form method="post" action="{% url 'task_delete' task.pk %}" style="display:inline;">
-    {% csrf_token %}
-    <button type="submit" class="delete-task-btn">Delete</button>
-      </form>
+      <div class="task-card">
+        {{ task.title }} - {{ task.due_date|date:"M d, Y" }} -
+        {% if task.completed %}
+          ✅ Done
+        {% else %}
+          ❌ Not Done
+          <a href="{% url 'task_complete' task.id %}">Mark as Done</a>
+        {% endif %}
+        <a href="{% url 'task_edit' task.id %}">Edit</a>
+        <form method="post" action="{% url 'task_delete' task.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="delete-task-btn">Delete</button>
+        </form>
+      </div>
     </li>
   {% empty %}
     <li>No tasks yet.</li>
   {% endfor %}
 </ul>
-<audio id="task-added-sound" src="{% static 'sounds/success.mp3' %}" preload="auto"></audio>
+<!-- <audio id="task-added-sound" src="{% static 'sounds/success.mp3' %}" preload="auto"></audio>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const taskList = document.querySelector('.book-page ul');
@@ -51,5 +53,5 @@
       }
     }
   });
-</script>
+</script> -->
 {% endblock %}
