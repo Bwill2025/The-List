@@ -53,6 +53,16 @@
         {% endblock %}
       </div>
     </main>
+    <audio id="bg-music" src="{% static 'sounds/🎧 LoFi Background Music to RelaxStudy — No Copyright Chill Aesthetic Royalty Free Beats by Lukrembo.mp3' %}" autoplay loop></audio>
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const audio = document.getElementById('bg-music');
+    document.body.addEventListener('click', function playMusicOnce() {
+      audio.play();
+      document.body.removeEventListener('click', playMusicOnce);
+    });
+  });
+</script>
   </body>
 </html>
 <script>
